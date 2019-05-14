@@ -4,16 +4,22 @@ services:
   php:
     image: miniblog/php
     container_name: miniblog-php
-    #build: ./docker/php
     volumes:
     - .:/sync
+    ports:
+    - 8000:8000
+    working_dir: /sync/backend
+    command: php -S 0.0.0.0:8000 -t public
 
   nuxt:
     image: miniblog/nuxt    
     container_name: miniblog-nuxt
-    command: node server.js
     volumes:
     - .:/sync
+    ports:
+    - 3000:3000
+    working_dir: /sync/frontend
+    command: yarn run dev -H 0.0.0.0 -p 3000
   
   nginx:
     image: nginx
