@@ -1,7 +1,13 @@
 <template>
   <div>
     <h1>ミニブログ</h1>
-    <b-table hover striped :fields="fields" :items="items" />
+    <b-table hover striped :fields="fields" :items="items">
+      <template slot="title" slot-scope="data">
+        <nuxt-link :to="'/articles/' + data.item.id">{{
+          data.value
+        }}</nuxt-link>
+      </template>
+    </b-table>
   </div>
 </template>
 
@@ -32,6 +38,7 @@ export default {
   computed: {
     items() {
       return [...Array(50).keys()].map(num => ({
+        id: num,
         title: '記事' + String(num) + 'のタイトル',
         tags: 'ニュース,趣味',
         created_at: '2019/01/01 01:01:01',
