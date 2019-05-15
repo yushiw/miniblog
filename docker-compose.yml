@@ -2,7 +2,7 @@ version: '3'
 
 services:
   php:
-    image: miniblog/php
+    build: ./docker/php
     container_name: miniblog-php
     volumes:
     - .:/sync
@@ -12,7 +12,7 @@ services:
     command: php -S 0.0.0.0:8000 -t public
 
   nuxt:
-    image: miniblog/nuxt    
+    build: ./docker/nuxt 
     container_name: miniblog-nuxt
     volumes:
     - .:/sync
