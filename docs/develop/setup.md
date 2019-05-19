@@ -27,3 +27,11 @@ Laravel Installer 2.1.0
 
 $ laravel new backend
 ```
+
+### nuxt projectの作成
+```bash
+## nuxtコンテナにログイン
+$ docker exec -it [NuxtContainerId] /bin/bash
+
+## メモ忘れた 省略
+```
