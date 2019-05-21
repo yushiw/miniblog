@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar is-logged-in :user-type="1" />
     <h1>ミニブログ</h1>
     <b-table hover striped :fields="fields" :items="items">
       <template slot="title" slot-scope="data">
@@ -12,7 +13,12 @@
 </template>
 
 <script>
+import NavBar from '~/components/NavBar'
+
 export default {
+  components: {
+    NavBar
+  },
   data() {
     return {
       fields: [
