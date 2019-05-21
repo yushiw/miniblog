@@ -1,5 +1,6 @@
 <template>
   <div>
+    <NavBar is-logged-in :user-type="1" />
     <h1>{{ title }}</h1>
     <p>{{ tags }}</p>
     <p>{{ content }}</p>
@@ -7,7 +8,12 @@
 </template>
 
 <script>
+import NavBar from '~/components/NavBar'
+
 export default {
+  components: {
+    NavBar
+  },
   data() {
     return {
       id: null,
