@@ -8,7 +8,9 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item v-if="isAdmin" href="#">ユーザー一覧</b-nav-item>
-          <b-nav-item v-if="isLoggedIn" href="#">マイブログ</b-nav-item>
+          <b-nav-item v-if="isLoggedIn" href="/my/articles">
+            マイブログ
+          </b-nav-item>
         </b-navbar-nav>
 
         <!-- Right aligned nav items -->
