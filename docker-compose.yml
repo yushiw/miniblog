@@ -19,7 +19,7 @@ services:
     ports:
     - 3000:3000
     working_dir: /sync/frontend
-    command: yarn run dev -H 0.0.0.0 -p 3000
+    command: bash -c "yarn && yarn run dev -H 0.0.0.0 -p 3000"
   
   nginx:
     image: nginx

@@ -13,9 +13,18 @@ miniblog/
 └── frontend/ : Nuxt project  
 
 ## 実行
+### docker-compose up
 ```bash
 $ git clone [git repository]
 $ cd miniblog
-$ docker-compose up
+$ docker-compose up -d
 ```
+
+### Laravel projectの導入
+```bash
+$ docker exec miniblog-php composer install
+$ docker exec miniblog-php cp .env.example .env
+$ docker exec miniblog-php php artisan key:generate
+```
+
 -> localhost:8000 でバックエンド、localhost:3000 でフロントエンドのページが表示できる
