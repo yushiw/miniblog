@@ -17,7 +17,8 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->bigInteger('article_id');
-            $table->bigInteger('reply_target_id');
+            $table->bigInteger('reply_target_id')->nullable();
+            $table->text('text');
             $table->timestamps();
         });
     }
