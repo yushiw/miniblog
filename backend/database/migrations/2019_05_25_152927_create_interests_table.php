@@ -17,7 +17,7 @@ class CreateInterestsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->bigInteger('article_id');
-            $table->integer('interest_type_id');
+            $table->integer('type');
             $table->timestamps();
         });
     }
