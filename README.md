@@ -24,7 +24,7 @@ $ docker-compose up -d
 ```bash
 $ docker exec miniblog-php composer install
 $ docker exec miniblog-php cp .env.docker .env
-$ docker exec miniblog-php php artisan migrate
+$ docker exec miniblog-php php artisan migrate --seed
 ```
 -> localhost:8000 でバックエンド、localhost:3000 でフロントエンドのページが表示できる
 
