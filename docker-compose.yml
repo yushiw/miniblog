@@ -34,17 +34,17 @@ services:
   
   db:
     image: mysql:5.7
-    container_name: miniblog-db-host
+    container_name: miniblog-db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: miniblog
-      MYSQL_USER: docker
-      MYSQL_PASSWORD: docker
+      MYSQL_USER: miniblog
+      MYSQL_PASSWORD: miniblog
       TZ: 'Asia/Tokyo'
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
     - ./docker/db/data:/var/lib/mysql
-    - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
-    - ./docker/db/sql:/docker-entry-point-initdb.d
+    #- ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+    #- ./docker/db/sql:/docker-entry-point-initdb.d
     ports:
     - 3306:3306

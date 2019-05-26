@@ -23,8 +23,15 @@ $ docker-compose up -d
 ### Laravel projectの導入
 ```bash
 $ docker exec miniblog-php composer install
-$ docker exec miniblog-php cp .env.example .env
-$ docker exec miniblog-php php artisan key:generate
+$ docker exec miniblog-php cp .env.docker .env
+$ docker exec miniblog-php php artisan migrate
+```
+-> localhost:8000 でバックエンド、localhost:3000 でフロントエンドのページが表示できる
+
+## Tips
+### MySQL CLI へのログイン
+```bash
+$ docker exec -it miniblog-db mysql -u miniblog -p
+## password = miniblog
 ```
 
--> localhost:8000 でバックエンド、localhost:3000 でフロントエンドのページが表示できる
