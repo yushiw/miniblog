@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('display_name');
+            $table->integer('type');
             $table->timestamps();
         });
     }
