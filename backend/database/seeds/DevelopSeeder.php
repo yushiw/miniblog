@@ -28,6 +28,7 @@ class DevelopSeeder extends Seeder
         Interest::truncate();
         Tag::truncate();
         User::truncate();
+        DB::table('taggings')->truncate();
     }
 
     private function setData()
@@ -46,7 +47,7 @@ class DevelopSeeder extends Seeder
 
         for ($i = 1; $i <= 20; $i ++) {
             Tag::create([
-                'name' => 'タグ' . $i                
+                'name' => 'タグ' . $i
             ]);
         }
 
@@ -55,7 +56,7 @@ class DevelopSeeder extends Seeder
                 'title' => '記事' . $i,
                 'text' => '本文' . $i,
             ]);
-            $article->tags()->attach($i % 20 + 1);
+            $article->tags()->sync([$i % 20 + 1, ($i + 1) % 20 + 1]);
             if ($i <= 40) {
                 $comment = $article->comments()->create([
                     'user_id' => $general_user->id,
