@@ -2,13 +2,20 @@
   <div>
     <NavBar is-logged-in :user-type="1" />
     <h1>ミニブログ</h1>
-    <b-table hover striped :fields="fields" :items="items">
-      <template slot="title" slot-scope="data">
-        <nuxt-link :to="'/articles/' + data.item.id">{{
-          data.value
-        }}</nuxt-link>
-      </template>
-    </b-table>
+    <div class="row">
+      <div class="offset-sm-1 col-sm-10">
+        <b-table hover striped :fields="fields" :items="items">
+          <template slot="title" slot-scope="data">
+            <nuxt-link :to="'/articles/' + data.item.id">{{
+              data.value
+            }}</nuxt-link>
+          </template>
+          <template slot="tags" slot-scope="data">
+            <p v-for="tag in data.value" :key="tag.id">{{ tag.name }}</p>
+          </template>
+        </b-table>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -43,14 +50,13 @@ export default {
   },
   computed: {
     items() {
-      return [...Array(50).keys()].map(num => ({
-        id: num,
-        title: '記事' + String(num) + 'のタイトル',
-        tags: 'ニュース,趣味',
-        created_at: '2019/01/01 01:01:01',
-        updated_at: '2019/01/01 01:01:01'
-      }))
+      return this.rawItems
     }
+  },
+  async asyncData({ $axios }) {
+    const res = await $axios.$get('http://php:8000/articles')
+    console.log(res.articles)
+    return { rawItems: res.articles }
   }
 }
 </script>
