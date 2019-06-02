@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar toggleable="lg" type="dark">
       <b-navbar-brand href="/articles">MiniBlog</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
@@ -43,3 +43,8 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.navbar {
+  background: $main-color;
+}
+</style>
