@@ -54,8 +54,7 @@ export default {
     }
   },
   async asyncData({ $axios }) {
-    const res = await $axios.$get('http://php:8000/articles')
-    console.log(res.articles)
+    const res = await $axios.$get('http://php:8000/backend/articles')
     return { rawItems: res.articles }
   }
 }
