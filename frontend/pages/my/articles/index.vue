@@ -17,6 +17,9 @@
               data.value
             }}</n-link>
           </template>
+          <template slot="tags" slot-scope="data">
+            <p v-for="tag in data.value" :key="tag.id">{{ tag.name }}</p>
+          </template>
         </b-table>
       </div>
     </div>
@@ -54,14 +57,12 @@ export default {
   },
   computed: {
     items() {
-      return [...Array(50).keys()].map(num => ({
-        id: num,
-        title: '記事' + String(num) + 'のタイトル',
-        tags: 'ニュース,趣味',
-        created_at: '2019/01/01 01:01:01',
-        updated_at: '2019/01/01 01:01:01'
-      }))
+      return this.rawItems
     }
+  },
+  async asyncData({ $axios }) {
+    const res = await $axios.$get('/backend/my/articles')
+    return { rawItems: res.articles }
   }
 }
 </script>
