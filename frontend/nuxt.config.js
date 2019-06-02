@@ -25,6 +25,7 @@ export default {
    ** Global CSS
    */
   css: [
+    '@/assets/css/ress.css',
     '@/assets/css/main.scss'
   ],
 
