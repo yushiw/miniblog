@@ -42,7 +42,8 @@ export default {
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
 
-   '@nuxtjs/proxy'
+   '@nuxtjs/proxy',
+   '@nuxtjs/style-resources'
   ],
   /*
    ** Axios module configuration
@@ -55,6 +56,12 @@ export default {
     '/backend': {
       target: 'http://php:8000'
     }
+  },
+
+  styleResources: {
+    scss: [
+      '~/assets/css/variable.scss'
+    ]
   },
 
   /*
