@@ -27,6 +27,7 @@ class ArticleController extends Controller
     public function read(Request $request, $id)
     {
         $article = Article::findOrFail($id);
+        $article->tags = $article->tags;
         return response()->json($article);
     }
 
