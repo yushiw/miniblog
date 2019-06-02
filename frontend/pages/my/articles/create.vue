@@ -1,5 +1,6 @@
 <template>
-  <dev class="container-fluid">
+  <div class="container-fluid">
+    <NavBar is-logged-in :user-type="1" />
     <h1>新規作成</h1>
     <div class="row">
       <div class="offset-sm-1 col-sm-10">
@@ -7,15 +8,16 @@
           <div class="form-group">
             <label for="titleInput">タイトル</label>
             <input
+              id="titleInput"
+              v-model="title"
               type="text"
               class="form-control"
-              id="titleInput"
               placeholder="タイトル"
             />
           </div>
           <div class="form-group">
             <label for="textarea">本文</label>
-            <textarea class="form-control" id="textarea"></textarea>
+            <textarea id="textarea" v-model="text" class="form-control" />
           </div>
         </form>
       </div>
@@ -25,10 +27,35 @@
         <n-link to="/my/articles" class="btn btn-secondary">
           キャンセル
         </n-link>
-        <n-link to="/my/articles" class="btn btn-primary">
+        <button type="button" class="btn btn-primary" @click="store">
           登録
-        </n-link>
+        </button>
       </div>
     </div>
-  </dev>
+  </div>
 </template>
+
+<script>
+import NavBar from '~/components/NavBar'
+
+export default {
+  components: {
+    NavBar
+  },
+  data() {
+    return {
+      title: '',
+      text: ''
+    }
+  },
+  methods: {
+    async store() {
+      const res = await this.$axios.$post('/backend/my/articles/store', {
+        title: this.title,
+        text: this.text
+      })
+      console.log(res)
+    }
+  }
+}
+</script>
