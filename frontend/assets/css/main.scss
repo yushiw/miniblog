@@ -11,6 +11,10 @@ a {
   color: $main-color;
 }
 
+a:hover {
+  color: $deeper-color;
+}
+
 .btn-primary {
   color: #fff;
   background-color: $main-color;
