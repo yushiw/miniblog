@@ -42,7 +42,6 @@ export default {
   },
   async asyncData({ $axios, params }) {
     const res = await $axios.$get(`/backend/my/articles/${params.id}`)
-    console.log(res)
     return {
       title: res.title,
       tags: res.tags,

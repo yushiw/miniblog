@@ -52,11 +52,10 @@ export default {
   },
   methods: {
     async store() {
-      const res = await this.$axios.$post('/backend/my/articles/store', {
+      await this.$axios.$post('/backend/my/articles/store', {
         title: this.title,
         text: this.text
       })
-      console.log(res)
     }
   }
 }
