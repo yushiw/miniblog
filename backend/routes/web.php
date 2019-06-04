@@ -15,6 +15,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group([
+    'middleware' => 'web',
+    'prefix' => 'auth'
+], function ($router) {
+    $controller = 'Web\AuthController';
+
+    Route::post('login', $controller . '@login');
+    Route::post('logout', $controller . '@logout');
+    Route::post('refresh', $controller . '@refresh');
+    Route::post('me', $controller . '@me');
+});
+
 Route::prefix('articles')->group(function () {
     $controller = 'Web\ArticleController';
     Route::get('/', $controller . '@index')->name('articles.index');

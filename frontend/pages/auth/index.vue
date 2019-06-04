@@ -24,7 +24,11 @@
           class="form-control"
         />
       </div>
-      <button type="submit" class="btn btn-primary btn-block mt-5">
+      <button
+        type="button"
+        class="btn btn-primary btn-block mt-5"
+        @click="submit"
+      >
         {{ submitText }}
       </button>
       <div class="switch my-2">
@@ -45,6 +49,7 @@ export default {
       passwordRe: ''
     }
   },
+
   computed: {
     title() {
       return this.isLoginMode ? 'ログイン' : '新規登録'
@@ -54,6 +59,30 @@ export default {
     },
     submitText() {
       return this.isLoginMode ? 'ログインする' : '新規登録する'
+    }
+  },
+
+  methods: {
+    submit() {
+      if (this.isLoginMode) {
+        this.login()
+      } else {
+        this.register()
+      }
+    },
+    async login() {
+      try {
+        await this.$axios.$post('/backend/auth/login', {
+          name: this.name,
+          password: this.password
+        })
+        location.href = '/my/articles'
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    register() {
+      console.log('register')
     }
   }
 }
