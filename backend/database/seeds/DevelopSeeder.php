@@ -37,12 +37,14 @@ class DevelopSeeder extends Seeder
             'name' => 'admin1',
             'display_name' => '管理者1',
             'type' => 1,
+            'password' => Hash::make('password'),
         ]);
 
         $general_user = User::create([
             'name' => 'general1',
             'display_name' => '一般ユーザー1',
             'type' => 0,
+            'password' => Hash::make('password'),
         ]);
 
         for ($i = 1; $i <= 20; $i ++) {
