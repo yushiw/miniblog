@@ -31,10 +31,14 @@
 <script>
 import NavBar from '~/components/NavBar'
 
+const Cookie = process.client ? require('js-cookie') : undefined
+const cookieparser = process.server ? require('cookieparser') : undefined
+
 export default {
   components: {
     NavBar
   },
+
   data() {
     return {
       fields: [
@@ -57,12 +61,18 @@ export default {
       ]
     }
   },
+
   computed: {
     items() {
       return this.rawItems
     }
   },
-  async asyncData({ $axios }) {
+
+  async asyncData({ $axios, req }) {
+    const token = process.server
+      ? cookieparser.parse(req.headers.cookie).accessToken
+      : Cookie.get('accessToken')
+    $axios.setToken(token, 'Bearer')
     const res = await $axios.$get('/backend/my/articles')
     return { rawItems: res.articles }
   }

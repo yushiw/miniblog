@@ -21,6 +21,9 @@
 <script>
 import NavBar from '~/components/NavBar'
 
+const Cookie = process.client ? require('js-cookie') : undefined
+const cookieparser = process.server ? require('cookieparser') : undefined
+
 export default {
   components: {
     NavBar
@@ -40,7 +43,12 @@ export default {
       return this.tags.map(t => t.name).join(',')
     }
   },
-  async asyncData({ $axios, params }) {
+  async asyncData({ $axios, params, req }) {
+    const token = process.server
+      ? cookieparser.parse(req.headers.cookie).accessToken
+      : Cookie.get('accessToken')
+    $axios.setToken(token, 'Bearer')
+
     const res = await $axios.$get(`/backend/my/articles/${params.id}`)
     return {
       title: res.title,
@@ -52,7 +60,7 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .created_at {
   color: $main-color;
   padding: 0;

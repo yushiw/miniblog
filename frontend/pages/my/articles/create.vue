@@ -40,22 +40,34 @@
 <script>
 import NavBar from '~/components/NavBar'
 
+const Cookie = process.client ? require('js-cookie') : undefined
+
 export default {
   components: {
     NavBar
   },
+
   data() {
     return {
       title: '',
       text: ''
     }
   },
+
   methods: {
     async store() {
-      await this.$axios.$post('/backend/my/articles/store', {
-        title: this.title,
-        text: this.text
-      })
+      const token = Cookie.get('accessToken')
+      this.$axios.setToken(token, 'Bearer')
+
+      try {
+        await this.$axios.$post('/backend/my/articles/store', {
+          title: this.title,
+          text: this.text
+        })
+        this.$router.push('/my/articles')
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

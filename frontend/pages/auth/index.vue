@@ -24,7 +24,11 @@
           class="form-control"
         />
       </div>
-      <button type="submit" class="btn btn-primary btn-block mt-5">
+      <button
+        type="button"
+        class="btn btn-primary btn-block mt-5"
+        @click="submit"
+      >
         {{ submitText }}
       </button>
       <div class="switch my-2">
@@ -36,6 +40,8 @@
   </div>
 </template>
 <script>
+const Cookie = process.client ? require('js-cookie') : undefined
+
 export default {
   data() {
     return {
@@ -45,6 +51,7 @@ export default {
       passwordRe: ''
     }
   },
+
   computed: {
     title() {
       return this.isLoginMode ? 'ログイン' : '新規登録'
@@ -55,10 +62,35 @@ export default {
     submitText() {
       return this.isLoginMode ? 'ログインする' : '新規登録する'
     }
+  },
+
+  methods: {
+    submit() {
+      if (this.isLoginMode) {
+        this.login()
+      } else {
+        this.register()
+      }
+    },
+    async login() {
+      try {
+        const res = await this.$axios.$post('/backend/auth/login', {
+          name: this.name,
+          password: this.password
+        })
+        Cookie.set('accessToken', res.access_token)
+        this.$router.push('/my/articles')
+      } catch (e) {
+        console.log(e)
+      }
+    },
+    register() {
+      console.log('register')
+    }
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 body {
   background: $light-color;
 }
