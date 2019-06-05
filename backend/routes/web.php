@@ -15,13 +15,27 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::group([
+    'middleware' => 'web',
+    'prefix' => 'auth'
+], function ($router) {
+    $controller = 'Web\AuthController';
+    Route::post('login', $controller . '@login');
+    Route::post('logout', $controller . '@logout');
+    Route::post('refresh', $controller . '@refresh');
+    Route::post('me', $controller . '@me');
+});
+
 Route::prefix('articles')->group(function () {
     $controller = 'Web\ArticleController';
     Route::get('/', $controller . '@index')->name('articles.index');
     Route::get('/{id}', $controller . '@read')->name('articles.read');
 });
 
-Route::prefix('my/articles')->group(function () {
+Route::group([
+    'middleware' => ['web', 'auth'],
+    'prefix' => 'my/articles'
+], function ($router) {
     $controller = 'Web\ArticleController';
     Route::get('/', $controller . '@index')->name('my.articles.index');
     Route::post('/store', $controller . '@store')->name('my.articles.store');
