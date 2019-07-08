@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-const Cookie = process.client ? require('js-cookie') : undefined
+// const Cookie = process.client ? require('js-cookie') : undefined
 
 export default {
   data() {
@@ -74,12 +74,12 @@ export default {
     },
     async login() {
       try {
-        const res = await this.$axios.$post('/backend/auth/login', {
-          name: this.name,
-          password: this.password
+        await this.$auth.loginWith('local', {
+          data: {
+            name: this.name,
+            password: this.password
+          }
         })
-        Cookie.set('accessToken', res.access_token)
-        this.$router.push('/my/articles')
       } catch (e) {
         console.log(e)
       }

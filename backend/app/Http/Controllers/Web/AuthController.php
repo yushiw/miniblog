@@ -40,7 +40,9 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+
+        return response()->json(compact('user'));
     }
 
     /**

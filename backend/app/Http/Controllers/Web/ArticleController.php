@@ -12,7 +12,7 @@ class ArticleController extends Controller
 
     public function index(Request $request)
     {
-        $articles = Article::with('tags')->get();
+        $articles = Article::with('tags')->orderBy('id', 'desc')->get();
         return response()->json(compact('articles'));
     }
 

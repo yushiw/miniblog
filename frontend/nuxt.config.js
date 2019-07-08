@@ -44,7 +44,8 @@ export default {
     'bootstrap-vue/nuxt',
 
    '@nuxtjs/proxy',
-   '@nuxtjs/style-resources'
+   '@nuxtjs/style-resources',
+   '@nuxtjs/auth'
   ],
   /*
    ** Axios module configuration
@@ -81,6 +82,43 @@ export default {
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
+      }
+    }
+  },
+
+  auth: {
+    redirect: {
+      login: '/auth',
+      logout: '/auth',
+      home: '/my/articles',
+      callback: '/auth'
+    },
+    cookie: {
+      prefix: 'auth.',
+      options: {
+        path: '/'
+      }
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/backend/auth/login',
+            method: 'post',
+            propertyName: 'access_token'
+          },
+          logout: {
+            url: '/backend/auth/login',
+            method: 'post'
+          },
+          user: {
+            url: '/backend/auth/me',
+            method: 'post',
+            propertyName: 'user'
+          }
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer'
       }
     }
   }
