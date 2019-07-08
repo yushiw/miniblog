@@ -18,11 +18,30 @@
 
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item v-if="isLoggedIn" href="#">ログアウト</b-nav-item>
-          <b-nav-item v-else href="#">ログイン</b-nav-item>
+          <b-nav-item v-if="isLoggedIn" @click="showLogoutModal">
+            ログアウト
+          </b-nav-item>
+          <b-nav-item v-else href="/auth">ログイン</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
+
+    <!-- Logout Modal -->
+    <b-modal ref="logout-modal" hide-footer>
+      <template slot="modal-title">
+        ログアウト
+      </template>
+      <p>本当にログアウトしますか？</p>
+      <button
+        class="btn btn-outline-secondary btn-block"
+        @click="closeLogutModal"
+      >
+        キャンセル
+      </button>
+      <button class="btn btn-outline-warning btn-block" @click="logout">
+        ログアウト
+      </button>
+    </b-modal>
   </div>
 </template>
 
@@ -39,9 +58,26 @@ export default {
       default: -1
     }
   },
+
   computed: {
     isAdmin() {
       return this.userType === 1
+    }
+  },
+
+  methods: {
+    showLogoutModal() {
+      this.$refs['logout-modal'].show()
+    },
+    closeLogutModal() {
+      this.$refs['logout-modal'].hide()
+    },
+    async logout() {
+      try {
+        await this.$auth.logout()
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }
